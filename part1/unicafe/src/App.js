@@ -11,17 +11,18 @@ const Button = (props) => {
 
 const Statistics = ({good,neutral,bad}) => {
     const all = good+bad+neutral
+    const average = (good-bad)/all
+    const positive = good/all
     if(all){
         return(
             <div>
-                <div>good: {good}</div>
-                <div>neutral: {neutral}</div>
-                <div>bad: {bad}</div>
-                <div>all: {all}</div>
-                <div>average: {(good-bad)/all}</div>
-                <div>positive: {good/all}</div>
+                <StatisticsLine text={"good"} value={good}/>
+                <StatisticsLine text={"neutral"} value={neutral}/>
+                <StatisticsLine text={"bad"} value={bad}/>
+                <StatisticsLine text={"all"} value={all}/>all
+                <StatisticsLine text={"average"} value={average}/>
+                <StatisticsLine text={"positive"} value={positive}/>
             </div>
-
         )
     }
     else return(
@@ -30,6 +31,8 @@ const Statistics = ({good,neutral,bad}) => {
         </div>
     )
 }
+
+const StatisticsLine = ({text, value}) => <div>{text}: {value}</div>
 
 
 const App = () => {
