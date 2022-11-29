@@ -9,12 +9,24 @@ const Button = (props) => {
     )
 }
 
-const StatisticsDisplay = ({good,neutral,bad}) => {
-    return(
+const Statistics = ({good,neutral,bad}) => {
+    const all = good+bad+neutral
+    if(all){
+        return(
+            <div>
+                <div>good: {good}</div>
+                <div>neutral: {neutral}</div>
+                <div>bad: {bad}</div>
+                <div>all: {all}</div>
+                <div>average: {(good-bad)/all}</div>
+                <div>positive: {good/all}</div>
+            </div>
+
+        )
+    }
+    else return(
         <div>
-            <div>good {good}</div>
-            <div>neutral {neutral}</div>
-            <div>bad {bad}</div>
+            no feedback given
         </div>
     )
 }
@@ -41,7 +53,7 @@ const App = () => {
                 <Button handleClick={increment(setBad,bad)} text={"bad"}></Button>
             </div>
             <h1>statistics</h1>
-            <StatisticsDisplay good={good} neutral={neutral} bad={bad}></StatisticsDisplay>
+            <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
         </div>
     )
 }
