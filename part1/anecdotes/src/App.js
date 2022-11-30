@@ -1,11 +1,24 @@
 import { useState } from 'react'
 
-const Button = ({handleClickFunction, max}) =>{
-  return(
-      <button onClick={() => handleClickFunction(getRandomIntInclusive(0,max))}>
-        <i>another one</i>
-      </button>
-  )
+const Button = (props) =>{
+    if(props.max) {
+        return (
+            <button onClick={() => props.handleClickFunction(getRandomIntInclusive(0, props.max))}>
+                <i>{props.text}</i>
+            </button>
+        )
+    }
+    else if(props.text === "upvote"){
+        const copy = {...props.votes}
+        copy[props.selected] = copy[props.selected]+1
+        return (
+            <button onClick={() => props.handleClickFunction(copy)}>
+                {props.text}
+            </button>
+        )
+    }
+    else
+        return <div>Error displaying the button</div>
 }
 
 function getRandomIntInclusive(min, max) {
@@ -26,12 +39,15 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
-    console.log(anecdotes[selected])
+
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))
 
   return (
       <div>
         {anecdotes[selected]} <br/>
-        <Button handleClickFunction={setSelected} max={anecdotes.length-1}/>
+        {votes[selected]} <br/>
+        <Button handleClickFunction={setSelected} max={anecdotes.length-1} text={"another one"}/>
+        <Button handleClickFunction={setVotes} text={"upvote"} votes={votes} selected={selected}></Button>
       </div>
   )
 }
