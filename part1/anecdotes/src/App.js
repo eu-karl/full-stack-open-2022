@@ -45,7 +45,7 @@ const App = () => {
   return (
       <div>
         {anecdotes[selected]} <br/>
-        {votes[selected]} <br/>
+        has {votes[selected]} votes <br/>
         <Button handleClickFunction={setSelected} max={anecdotes.length-1} text={"another one"}/>
         <Button handleClickFunction={setVotes} text={"upvote"} votes={votes} selected={selected}></Button>
       </div>
